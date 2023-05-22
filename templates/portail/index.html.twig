@@ -1,0 +1,314 @@
+{% extends 'base.html.twig' %}
+{% block titre %}Le N°1 de l'engrais BIO en Côte d'Ivoire{% endblock %}
+
+{% block body %}
+
+<div class="hero-area hero-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 offset-lg-2 text-center">
+                <div class="hero-text">
+                    <div class="hero-text-tablecell">
+                        <p class="subtitle">100% bio</p>
+                        <h1>Le N°1 de l'engrais BIO en Côte d'Ivoire</h1>
+                        <div class="hero-btns">
+                            <a href="shop.html" class="boxed-btn">Collections AGROMAX</a>
+                            <a href="contact.html" class="bordered-btn">Nous contacter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end hero area -->
+
+<!-- features list section -->
+<div class="list-section p-4 bg-success">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                <div class="list-box d-flex align-items-center">
+                    <div class="list-icon">
+                        <i class="fas fa-shipping-fast ext-light"></i>
+                    </div>
+                    <div class="content">
+                        <h3 class="text-light">Livraison rapide</h3>
+                        <p  class="text-light">03 jours maximum</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                <div class="list-box d-flex align-items-center">
+                    <div class="list-icon">
+                        <i class="fas fa-phone-volume ext-light"></i>
+                    </div>
+                    <div class="content">
+                        <h3  class="text-light">24/7 Support</h3>
+                        <p  class="text-light">A votre écoute permanemment</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="list-box d-flex justify-content-start align-items-center">
+                    <div class="list-icon">
+                        <i class="fas fa-sync text-light"></i>
+                    </div>
+                    <div class="content">
+                        <h3  class="text-light">Satisfaction</h3>
+                        <p  class="text-light">Retour sur investissement!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end features list section -->
+
+<!-- logo carousel -->
+<div class="">
+    <div class="">
+        <div class="section-title text-center mt-5">
+            <h2><span class="orange-text">Votre projet agricole est le </span> NOTRE</h2>
+        </div>
+        <div class="row bg-light">
+            <div class="col-lg-12">
+                <div class="logo-carousel-inner">
+                    {% for elemeent in categories_pdt %}
+                        <div class="">
+                            <div class="card-body single-logo-item fa-border-none">
+                                <img class="" src="uploads/media/{{ elemeent.imageCategorie }}" height="120" alt="{{ elemeent.slug }}">
+                            </div>
+                            <div class="text-center"><a class="cart-btn" href="#">{{ elemeent.libelle }}</a></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end logo carousel -->
+
+<!-- product section -->
+<div class="product-section mt-10 mb-150 pt-100 pb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="section-title">
+                    <h3><span class="orange-text">Nos </span> Produits</h3>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for produit in produits %}
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="single-product-item">
+                        <div class="product-image">
+                            <a href="#"><img src="uploads/media/{{ produit.imageProduit }}" alt="{{ produit.libelle }}"></a>
+                        </div>
+                        <h3>{{ produit.libelle }}</h3>
+                        <p class="product-price"><span>bidon</span> {{ produit.prix }} </p>
+                        <a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <h4 class="text-center m-3 text-dark"><a href="#" class="btn-success p-3 rounded-4"><i class="fas fa-shopping-cart"></i> Visiter la boutique</a></h4>
+    </div>
+</div>
+<!-- end product section -->
+
+<!-- testimonail-section -->
+<div class="testimonail-section mt-150 mb-150">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2 text-center">
+            <div class="section-title">
+                <h3><span class="orange-text">Ils ont aimé </span> AGROMAX</h3>
+                <p></p>
+            </div>
+        </div>
+    </div>
+    <div class="text-cener"><h4> <span class=" fs-4 bg-success text-light border-rounded-10 p-2"></span></h4></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 text-center">
+                <div class="testimonial-sliders">
+                    <div class="single-testimonial-slider">
+                        <div class="client-avater">
+                            <img src="{{ asset('assets/portail/assets/img/18740751_1936690006563037_1440575942827541127_n (2).jpg') }}" alt="">
+                        </div>
+                        <div class="client-meta">
+                            <h3>Doumbia Saran <span>Détentrice de (02) hectares de manioc à Soubré.</span></h3>
+                            <p class="testimonial-body">
+                                " Au début je n'y croyais pas mais une fois un de mes amis m"a demandé d"essayer car lui même avait utilisé. J'ai donc testé et le résultat est incroyable"
+                            </p>
+                            <div class="last-icon">
+                                <i class="fas fa-quote-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single-testimonial-slider">
+                        <div class="client-avater">
+                            <img src="{{ asset('assets/portail/assets/img/20785839_397736047289626_4531085193569920629_o - Copie.jpg') }}" alt="">
+                        </div>
+                        <div class="client-meta">
+                            <h3>GUEU Cédric <span>Planteur</span></h3>
+                            <p class="testimonial-body">
+                                " J'ai découvert sur un groupe whatsapp les bienfaits de AGROMAX. Vu aue je suis planteur, j'ai voulu tester le produit AGROMAX CACAO. Mme ABEU membre du groupe et Directrice de la société AGRIDEVAF m'a coaché et j'ai suivi ses recommendations. Aujourdhui ma prouction a quintuplé et je suis très heureux. "
+                            </p>
+                            <div class="last-icon">
+                                <i class="fas fa-quote-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single-testimonial-slider">
+                        <div class="client-avater">
+                            <img src="{{ asset('assets/portail/assets/img/PM3.jpg') }}" alt="">
+                        </div>
+                        <div class="client-meta">
+                            <h3>ASSI Gnamien François <span>Revendeur à Grand-Lahou</span></h3>
+                            <p class="testimonial-body">
+                                " Pour moi je n'en tireerais aucun bénéficie dans la vente des produits mais jai osé et je suis devenu l'un des plus important revendeur de ma région. Merci à AGROMAX"
+                            </p>
+                            <div class="last-icon">
+                                <i class="fas fa-quote-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end testimonail-section -->
+
+<!-- advertisement section -->
+<div class="abt-section mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="abt-bg">
+                    <a href="{{ asset('assets/portail/presentation.mp4') }}" class="video-play-btn popup-youtube"><i class="fas fa-play"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="abt-text">
+                    <p class="top-sub">Seulement depuis 2023</p>
+                    <h3 class="text-justify">Nous sommes <span class="orange-text">Agridevaf</span></h3>
+                    <p class="text-justify">Etiam vulputate ut augue vel sodales. In sollicitudin neque et massa porttitor vestibulum ac vel nisi. Vestibulum placerat eget dolor sit amet posuere. In ut dolor aliquet, aliquet sapien sed, interdum velit. Nam eu molestie lorem.</p>
+                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente facilis illo repellat veritatis minus, et labore minima mollitia qui ducimus.</p>
+                    <a href="#" class="boxed-btn mt-4">En Savoir plus</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end advertisement section -->
+
+<!-- shop banner -->
+<section class="shop-banner">
+    <div class="container">
+        <h3>Vive Les promos de Juin! <br> avec d'importants <span class="orange-text">Discounts...</span></h3>
+        <div class="sale-percent"><span>jusqu'à </span>30% <span class="badge bg-success p-2 text-light rounded-5"> à partir de deux cartons achetés</span></div>
+            <div class="time-counter mt-5">
+                <div class="time-countdown clearfix" data-countdown="2023/6/01">
+                    <div class="counter-column">
+                        <div class="inner">
+                            <span class="count">00</span>Jours
+                        </div>
+                    </div>
+                    <div class="counter-column">
+                        <div class="inner">
+                            <span class="count">00</span>Heures
+                        </div>
+                    </div>
+                    <div class="counter-column">
+                        <div class="inner">
+                            <span class="count">00</span>Minutes
+                        </div>
+                    </div>
+                    <div class="counter-column">
+                        <div class="inner">
+                            <span class="count">00</span>Secondes
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <a href="#" class="cart-btn btn-lg">Acheter maintenant</a>
+    </div>
+</section>
+<!-- end shop banner -->
+
+
+<!-- infos section -->
+<div class="mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="section-title">
+                    <h3><span class="orange-text">Dernieres </span> infos</h3>
+                    <p><a href="#">Abonnez-vous à la newsletter</a></p>
+                </div>
+            </div>
+        </div>
+        <article class="mx-auto">
+            <div class="single-latest-news row mb-100 p-2">
+                <div class="col-md-4">
+                    <img class="rounded-3 img-fluid" src="/uploads/media/{{last_articles.featuredImage.filename}}" alt="{{ last_articles.featuredImage.altText }}" loading="lazy"  height="60%">
+                </div>
+                <div class="news-text-box col-md-8">
+                    <h3 style="font-family: Cursif;color: orangered">A la une</h1>
+                        <h3 class="text-danger"><a href="{{last_articles.slug}}">{{ last_articles.title }}</a></h3>
+                        <p class="blog-meta">
+                            <span class="author"><i class="fas fa-user"></i>agridevaf</span>
+                            <span class="date"><i class="fas fa-calendar"></i>{{ last_articles.createdAt|date('d m Y') }}</span>
+                        </p>
+                        <p class="excerpt">{{ last_articles.featuredText ?: last_articles.content | striptags|slice(0, 130) - '...' }}</p>
+                        <a href="#" class="read-more-btn">Lire l'article <i class="fas fa-angle-right"></i></a>
+                </div>
+            </div>
+        </article>
+
+        {#{% include 'blog/produit/list.html.twig' with { articles } %}#}
+        <div class="latest-news">
+            <div class="container mx-auto">
+                <div class="row">
+                    {% for article in articles_blog %}
+
+                        <div class="col-lg-4 col-md-6 mx-auto">
+                            <div class="single-latest-news">
+                                <a href="#">
+                                    {% if article.featuredImage %}
+                                        <a href="{{article.slug}}" class="link-primary">
+                                            <img src="/uploads/media/{{article.featuredImage.filename}}" alt="{{ article.featuredImage.altText }}" loading="lazy" width="350" height="200">
+                                        </a>
+                                    {% endif %}
+                                </a>
+                                <div class="news-text-box">
+                                    <h3><a href="{{article.slug}}">{{ article.title }}</a></h3>
+                                    <p class="blog-meta">
+                                        <span class="author"><i class="fas fa-user"></i>agridevaf</span>
+                                        <span class="date"><i class="fas fa-calendar"></i>{{ article.createdAt|date('d m Y') }}</span>
+                                    </p>
+                                    <p class="excerpt">{{ article.featuredText ?: article.content | striptags|slice(0, 130) - '...' }}</p>
+                                    <a href="#" class="read-more-btn">Lire l'article <i class="fas fa-angle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div></div></div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <a href="news.html" class="boxed-btn">Plus d'actualités</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+
+{% endblock %}

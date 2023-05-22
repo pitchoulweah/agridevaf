@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+{% set liste_produits = catalogue_services.findAllProduits%}
+{% block titre %}{{ produit.libelle }}{% endblock %}
+{% block body %}
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>informations sur</p>
+                        <h1 style="font-family: Cursif">{{ produit.libelle }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- single product -->
+<div class="single-product mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="single-product-img">
+                    <img src="{{ asset('uploads/media/') }}{{ produit.imageProduit }}" alt="{{ produit.slug }}">
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="single-product-content">
+                    <h3>{{ produit.libelle }}</h3>
+                    Conditionnement :<span class="badge alert-success p-2 rounded-4">{{ produit.conditionnement }}</span>
+                    <p class="single-product-pricing">{{ produit.prix }} F CFA</p>
+                    <h6 class="fst-italic">{{ produit.description|striptags }}</h6>
+                    <div class="single-product-form">
+                        <form action="#">
+                            <input type="number" placeholder="0">
+                        </form>
+                        <a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>
+                        <p><strong>Categories: </strong><span class="badge alert-warning p-2 rounded-4 fs-6">{{ produit.categorie}}</span></p>
+                    </div>
+                    <h4>Partagez:</h4>
+                    <ul class="product-share">
+                        <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href=""><i class="fab fa-twitter"></i></a></li>
+                        <li><a href=""><i class="fab fa-google-plus-g"></i></a></li>
+                        <li><a href=""><i class="fab fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end single product -->
+
+<!-- more products -->
+<div class="more-products mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="section-title">
+                    <h3><span class="orange-text">Produits </span> similaires</h3>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for pdt in liste_produits.findPdtByCategorie(produit.categorie, produit.id)  %}
+            <div class="col-lg-4 col-md-6 text-center">
+                <div class="single-product-item">
+                    <div class="product-image">
+                        <a href="{{ path('produit_show',{'slug': pdt.slug} )}}"><img src="uploads/media/{{ pdt.imageProduit }}" alt="{{ pdt.slug }}"></a>
+                    </div>
+                    <h3>{{ pdt.libelle }}</h3>
+                    <p class="product-price"><span>{{ pdt.conditionnement }}</span> {{ pdt.prix}} </p>
+                    <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+<!-- end more products -->
+{% endblock %}

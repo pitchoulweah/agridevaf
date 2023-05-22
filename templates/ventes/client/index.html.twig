@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+    <link rel="stylesheet" href="{{ asset('assets/portail/assets/bootstrap/css/bootstrap.min.css') }}">
+    <div class="contact-from-section mt-150 mb-150">
+        <div class="container">
+            <div class="row">
+            <div class="col-md-4  mb-lg-0 my-md-5">
+                <div class="">
+                    <div class="form-title">
+                        <h2>je me connecte</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="form_status"></div>
+                            <div class="contact-form">
+                                <form type="POST" id="fruitkha-contact" onSubmit="return valid_datas( this );">
+                                    <p>
+                                    <input type="tel" placeholder="Votre numéro de téléphone ou votre email" name="phone" id="phone" class="w-100">
+                                    </p>
+                                </form>
+                            </div>
+
+                    </div>
+                    <div class="card-footer bg-white p-3">
+                        <input type="submit" value="Connexion">
+                    </div>
+                </div>
+            </div>
+                <div class="col-md-6  mb-5 mb-lg-0">
+                    <div class="form-title">
+                        <h2>je m'inscris</h2>
+                        <p class="text-center text-primary">Vuillez mettre à jour vos données personnelles afin de bénéficier des dernières actualités et aussi d'effectuer vos achats</p>
+                    </div>
+                    <div id="form_status"></div>
+                    <div class="contact-form">
+
+                            {{ form_start(form, {'attr': {novalidate: 'novalidate'}}) }}
+                        <div class="row">
+                                <div class="col-md-6">{{ form_row(form.nom) }}</div>
+                                <div class="col-md-6">{{ form_row(form.prenoms) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">{{ form_row(form.telephone) }}</div>
+                            <div class="col-md-6">{{ form_row(form.email) }}</div>
+                        </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-title bg-light p-3 fw-bold">Adresse de Facturation</div>
+                                        <div class="card-body">
+                                            {{ form_row(form.adresse_facturation) }}
+                                            {{ form_row(form.ville_facturation) }}
+                                            {{ form_row(form.pays_facturation) }}
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-title bg-light p-3 fw-bold">Adresse de Facturation</div>
+                                        <div class="card-body">
+                                            {{ form_row(form.adresse_livraison) }}
+                                            {{ form_row(form.ville_livraison) }}
+                                            {{ form_row(form.pays_livraison) }}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                           <div class="text-center mt-5"><input type="submit" value="Soumettre"></div>
+                            {{ form_end(form) }}
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

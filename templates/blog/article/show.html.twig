@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.title }}!{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+
+        <div class="container text-center"><img class="img-fluid" width="75%" src="/uploads/media/{{ article.featuredImage.filename }}" alt="{{ article.featuredImage.altText }}">
+        <h1 class="text-orange">{{ article.title }}</h1></div>
+        <hr>
+        {{ article.content | raw }}
+
+        <h2 class="h2 comment-title mt-3">
+            <span class="comment-count">{{ article.comments | length }}</span> commentaire(s)
+        </h2>
+
+        <hr>
+
+        <div class="comment-area mb-5">
+            {{ form(commentForm, {'attr':{'class' : 'comment-form'}}) }}
+        </div>
+        <div class="comment-list">
+            {% for comment in article.comments %}
+                {% include 'blog/comment/index.html.twig' with [comment] %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="{{ asset('assets/app/js/app.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,12 @@
+
+
+<div class="row">
+
+
+        {% for article in articles_blog %}
+            <div class="col-md-10">
+                    {% include'blog/article/item.html.twig' with { article } %}
+            </div>
+        {% endfor %}
+
+</div>
