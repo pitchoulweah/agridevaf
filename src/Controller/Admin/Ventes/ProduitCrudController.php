@@ -41,12 +41,14 @@ class ProduitCrudController extends AbstractCrudController
         yield ChoiceField:: new('unite')
             ->setChoices([
             'Kg'=>'KG',
+            'hectare'=>'ha',
             'Litre(s)'=>'LITRES',
             'Unitaire'=>'UNITAIRE'
         ]);
         yield AssociationField:: new('categorie');
         yield BooleanField:: new('actif','Ce produit est-il actif ?');
         yield BooleanField:: new('vitrine','Ce produit apparait-il en première page ?');
+
 
         $mediaDir = $this->getParameter('medias_directory');
         $uploadDir = $this->getParameter('uploads_directory');

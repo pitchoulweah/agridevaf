@@ -52,7 +52,12 @@ class ProduitRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-
+    public function findProduitsVitrineEtActifs(){
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.actif = true AND p.vitrine = true')
+            ->getQuery()
+            ->getResult();
+    }
 //    public function findOneBySomeField($value): ?Produit
 //    {
 //        return $this->createQueryBuilder('a')

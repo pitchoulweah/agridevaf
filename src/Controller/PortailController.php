@@ -41,7 +41,7 @@ class PortailController extends AbstractController
         $lastArticle = $manager->getRepository(ArticleBlog::class)->find($idArticle[1]);
         //dd($lastArticle);
         return $this->render('portail/index.html.twig', [
-            'produits'=>$repository->findAll(),
+            'produits'=>$repository->findProduitsVitrineEtActifs(),
             'articles_blog'=>$articles,
             'categories'=>$categorieRepository->findAll(),
             'last_articles'=>$lastArticle,
