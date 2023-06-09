@@ -4,6 +4,7 @@ twig:
     globals:
         option_service: '@App\Services\OptionsService'
         catalogue_services: '@App\Services\CatalogueServices'
+        client_services: '@App\Services\ClientsService'
 when@test:
     twig:
         strict_variables: true

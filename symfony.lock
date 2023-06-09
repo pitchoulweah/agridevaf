@@ -44,6 +44,21 @@
             "ref": "b131e6cbfe1b898a508987851963fff485986285"
         }
     },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v6.2.0"
+    },
+    "payum/payum-bundle": {
+        "version": "2.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "2.4",
+            "ref": "518ac22defa04a8a1d82479ed362e2921487adf0"
+        },
+        "files": [
+            "./config/packages/payum.yaml"
+        ]
+    },
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
@@ -184,6 +199,15 @@
             "./phpunit.xml.dist",
             "./tests/bootstrap.php"
         ]
+    },
+    "symfony/requirements-checker": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.0",
+            "ref": "02c6e4b9b117c39e8a23eab7f3840ef6e62293b9"
+        }
     },
     "symfony/routing": {
         "version": "6.2",

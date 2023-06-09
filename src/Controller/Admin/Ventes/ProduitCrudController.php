@@ -23,7 +23,8 @@ class ProduitCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInPlural('Produits AGRIDEVAF');
+            ->setEntityLabelInPlural('Produits AGRIDEVAF')
+            ->setPageTitle('edit', "Modifier le produit");
     }
     public function configureFields(string $pageName): iterable
     {

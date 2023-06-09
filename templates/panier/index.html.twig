@@ -1,0 +1,152 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PanierController!{% endblock %}
+
+{% block body %}
+
+    <link rel="stylesheet" href="{{ asset('assets/portail/assets/append/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/portail/assets/append/css/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/portail/assets/append/css/jquery.fancybox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/portail/assets/append/css/jquery.fancybox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/portail/assets/append/css/jquery.fancybox.min.css') }}">
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>AGRIDEVAF</p>
+                        <h1>mon panier</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end breadcrumb section -->
+
+    <!-- cart -->
+    <div class="cart-section mt-2 mb-150">
+        <div class="container">
+            <div class="section-title text-center mt-5">
+                <h2><span class="orange-text" style="">Ma </span> Commande</h2> <span class="text-primary"><a
+                            href="{{ path('boutique') }}"><i class="fas fa-backspace text-success me-2"></i> Aller à la boutique</a></span>
+            </div>
+            {#<div class="isotope-card col-sm-4 all photography">
+                <a href="{{ asset('uploads/media/cacao-preleminaire1-89bf342b-8281-4027-ba91-7917986f9f8c.png') }}" data-fancybox="gal">
+                    <img src="{{ asset('uploads/media/cacao-preleminaire1-89bf342b-8281-4027-ba91-7917986f9f8c.png') }}" alt="Image" class="img-fluid">
+                    <div class="contents">
+                        <h3>House Design</h3>
+                        <div class="cat">Photography</div>
+                    </div>
+                </a>
+
+            </div>#}
+
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <div class="cart-table-wrap">
+                        <table class="cart-table">
+                            <thead class="cart-table-head">
+                            <tr class="table-head-row">
+                                <th class="product-remove text-danger">Retirer</th>
+                                <th class="product-image">image</th>
+                                <th class="product-name">Produit</th>
+                                <th class="product-price">Prix Unitaire</th>
+                                <th class="product-quantity">Quantité</th>
+                                <th class="product-total">Total</th>
+                            </tr>
+                            </thead>
+                            {% if (details_commande) %}
+                            <tbody>
+
+                                {% for detail in details_commande %}
+                                    <tr class="table-body-row">
+                                        <td class="product-remove"><a href="{{ path('process_commande_remove', {id_detail: detail.id}) }}"><i class="far fa-window-close"></i></a></td>
+                                        <td class="product-image isotope-card col-sm-4 all photography">
+
+                                                <a href="{{ asset('uploads/media/')}}{{ detail.produit.imageProduit }}" data-fancybox="gal">
+                                                    <img src="{{ asset('uploads/media/')}}{{ detail.produit.imageProduit }}" alt="{{ detail.produit.slug }}" class="img-fluid">
+                                                </a>
+
+                                        </td>
+                                        <td class="product-name">{{ detail.produit.libelle }}</td>
+                                        <td class="product-price">{{ detail.pu|number_format(0,',',' ')  }} F CFA</td>
+                                        <td class="product-quantity"><input type="number" placeholder="0" value="{{ detail.qte }}"></td>
+                                        <td class="product-total">{{ detail.totalht|number_format(0,',',' ')  }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                            {% else %}
+                                <div class="bg-warning">
+                                    <h3 class="bg-warning text-secondary p-2">Aucun article commandé</h3>
+                                </div>
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="total-section">
+                        <table class="total-table">
+                            <thead class="total-table-head">
+                            <tr class="table-total-row">
+                                <th>Totaux</th>
+                                <th>Montant</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="total-data">
+                                <td><strong>Total HT: </strong></td>
+                                <td>{{ current_commande.ht|number_format(0,',',' ') }} F CFA</td>
+                            </tr>
+                            <tr class="total-data">
+                                <td><strong>Livraison: </strong></td>
+                                <td>0</td>
+                            </tr>
+                            <tr class="total-data">
+                                <td><strong>TVA: </strong></td>
+                                <td>{{ current_commande.tva|number_format(0,',',' ') }} F CFA</td>
+                            </tr>
+
+                            <tr class="total-data">
+                                <td><strong>Total TTC: </strong></td>
+                                <td class="alert-success fw-bold">{{ current_commande.ttc|number_format(0,',',' ') }} F CFA</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="cart-buttons">
+                            <a href="#" class="boxed-btn bg-success">Actualiser </a>
+                            <a href="{{ path('app_checkout') }}" class="boxed-btn black btn-warning">Passer la commande</a>
+                        </div>
+                    </div>
+
+                    <div class="coupon-section">
+                        <h3>Vous avez un bon d'achat</h3>
+                        <div class="coupon-form-wrap">
+                            <form action="#">
+                                <p><input type="text" placeholder="N° du bon"></p>
+                                <button class="btn rounded-5 btn-secondary" type=""><h4 class="text-light">Appliquer la réduction</h4></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end cart -->
+
+    <script src="{{ asset('assets/portail/assets/append/js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ asset('assets/portail/assets/append/js/jquery-migrate-3.0.0.min.js') }}"></script>
+    <script src="{{ asset('assets/portail/assets/append/js/jquery-migrate-3.0.0.min.js') }}"></script>
+    <script src="{{ asset('assets/portail/assets/append/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/portail/assets/append/js/owl.carousel.min.js') }}j"></script>
+    <script src="{{ asset('assets/portail/assets/append/js/aos.js') }}"></script>
+    <script src="{{ asset('assets/portail/assets/append/js/imagesloaded.pkgd.js') }}"></script>
+    <script src="{{ asset('assets/portail/assets/append/js/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('assets/portail/assets/append/js/jquery.animateNumber.min.js') }}"></script>
+    <script src="{{ asset('assets/portail/assets/append/js/jquery.stellar.min.js') }}"></script>
+    <script src="{{ asset('assets/portail/assets/append/js/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ asset('assets/portail/assets/append/js/jquery.fancybox.min.js') }}"></script>
+    <script src="{{ asset('assets/portail/assets/append/js/custom.js') }}"></script>
+
+{% endblock %}

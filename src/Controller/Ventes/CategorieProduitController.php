@@ -24,7 +24,6 @@ class CategorieProduitController extends AbstractController
     #[Route('/la-boutique', name: 'boutique')]
     public function shop()
     {
-
         return $this->render('boutique/shop.html.twig');
     }
 }

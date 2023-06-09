@@ -32,6 +32,26 @@ class OptionRepository extends ServiceEntityRepository
 
     }
 
+    public function hasTVA() :?Option
+    {
+        $valeur = "tva_a_inclure";
+        return $this->createQueryBuilder('o', 'o.name')
+            ->andWhere('o.name = :val')
+            ->setParameter('val', $valeur)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+    }
+    public function findTVA() :?Option
+    {
+        $valeur = "tva_valeur";
+        return $this->createQueryBuilder('o', 'o.name')
+            ->andWhere('o.name = :val')
+            ->setParameter('val', $valeur)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+    }
     public function getValue(string $name): mixed
     {
         try {

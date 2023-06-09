@@ -2,7 +2,11 @@
 
 namespace App\Entity\Ventes;
 
+use App\Entity\Pays;
+use App\Entity\Ville;
 use App\Repository\Ventes\ClientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
@@ -28,20 +32,30 @@ class Client
     #[ORM\Column(length: 255)]
     private ?string $adresse_facturation = null;
 
-    #[ORM\Column(length: 100)]
-    private ?string $ville_facturation = null;
-
-    #[ORM\Column(length: 100, nullable: true)]
-    private ?string $pays_facturation = null;
-
     #[ORM\Column(length: 255)]
     private ?string $adresse_livraison = null;
 
-    #[ORM\Column(length: 255)]
+
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Commande::class)]
+    private Collection $commandes;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $ville_facturation = null;
+
+        #[ORM\Column(length: 100, nullable: true)]
+    private ?string $pays_facturation = null;
+
+        #[ORM\Column(length: 100, nullable: true)]
     private ?string $ville_livraison = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+        #[ORM\Column(length: 100, nullable: true)]
     private ?string $pays_livraison = null;
+
+
+    public function __construct()
+    {
+        $this->commandes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -108,30 +122,6 @@ class Client
         return $this;
     }
 
-    public function getVilleFacturation(): ?string
-    {
-        return $this->ville_facturation;
-    }
-
-    public function setVilleFacturation(string $ville_facturation): self
-    {
-        $this->ville_facturation = $ville_facturation;
-
-        return $this;
-    }
-
-    public function getPaysFacturation(): ?string
-    {
-        return $this->pays_facturation;
-    }
-
-    public function setPaysFacturation(?string $pays_facturation): self
-    {
-        $this->pays_facturation = $pays_facturation;
-
-        return $this;
-    }
-
     public function getAdresseLivraison(): ?string
     {
         return $this->adresse_livraison;
@@ -144,27 +134,100 @@ class Client
         return $this;
     }
 
+
+
+    /**
+     * @return Collection<int, Commande>
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes->add($commande);
+            $commande->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): self
+    {
+        if ($this->commandes->removeElement($commande)) {
+            // set the owning side to null (unless already changed)
+            if ($commande->getClient() === $this) {
+                $commande->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getVilleFacturation(): ?string
+    {
+        return $this->ville_facturation;
+    }
+
+    /**
+     * @param string|null $ville_facturation
+     */
+    public function setVilleFacturation(?string $ville_facturation): void
+    {
+        $this->ville_facturation = $ville_facturation;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPaysFacturation(): ?string
+    {
+        return $this->pays_facturation;
+    }
+
+    /**
+     * @param string|null $pays_facturation
+     */
+    public function setPaysFacturation(?string $pays_facturation): void
+    {
+        $this->pays_facturation = $pays_facturation;
+    }
+
+    /**
+     * @return string|null
+     */
     public function getVilleLivraison(): ?string
     {
         return $this->ville_livraison;
     }
 
-    public function setVilleLivraison(string $ville_livraison): self
+    /**
+     * @param string|null $ville_livraison
+     */
+    public function setVilleLivraison(?string $ville_livraison): void
     {
         $this->ville_livraison = $ville_livraison;
-
-        return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getPaysLivraison(): ?string
     {
         return $this->pays_livraison;
     }
 
-    public function setPaysLivraison(?string $pays_livraison): self
+    /**
+     * @param string|null $pays_livraison
+     */
+    public function setPaysLivraison(?string $pays_livraison): void
     {
         $this->pays_livraison = $pays_livraison;
-
-        return $this;
     }
+
 }

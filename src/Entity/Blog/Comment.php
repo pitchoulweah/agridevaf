@@ -3,6 +3,7 @@
 namespace App\Entity\Blog;
 
 use App\Entity\User;
+use App\Entity\Ventes\Client;
 use App\Repository\Blog\CommentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -25,14 +26,17 @@ class Comment
     #[ORM\JoinColumn(nullable: false)]
     private ?ArticleBlog $article = null;
 
-    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\ManyToOne(inversedBy: 'comments',cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $utilisateur = null;
+    private ?Abonne $utilisateur = null;
 
-public function __construct(ArticleBlog $article)
-{
-    $this->article = $article;
-}
+    #[ORM\Column(nullable: true)]
+    private ?int $reply_id = null;
+
+    public function __construct(ArticleBlog $article)
+    {
+        $this->article = $article;
+    }
 
     public function getId(): ?int
     {
@@ -63,26 +67,38 @@ public function __construct(ArticleBlog $article)
         return $this;
     }
 
-    public function getArticleBlog(): ?ArticleBlog
+    public function getArticle(): ?ArticleBlog
     {
         return $this->article;
     }
 
-    public function setArticleBlog(?ArticleBlog $article): self
+    public function setArticle(?ArticleBlog $article): self
     {
         $this->article = $article;
 
         return $this;
     }
 
-    public function getUtilisateur(): ?User
+    public function getUtilisateur(): ?Abonne
     {
         return $this->utilisateur;
     }
 
-    public function setUtilisateur(?User $utilisateur): self
+    public function setUtilisateur(?Abonne $utilisateur): self
     {
         $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    public function getReplyId(): ?int
+    {
+        return $this->reply_id;
+    }
+
+    public function setReplyId(?int $reply_id): self
+    {
+        $this->reply_id = $reply_id;
 
         return $this;
     }

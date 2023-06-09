@@ -38,7 +38,7 @@ class ArticleBlog  implements TimestampInterface
     #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'articles')]
     private Collection $categories;
 
-    #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Comment::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'article', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
 
     #[ORM\ManyToOne]
@@ -166,7 +166,7 @@ class ArticleBlog  implements TimestampInterface
     {
         if (!$this->comments->contains($comment)) {
             $this->comments->add($comment);
-            $comment->setArticleBlog($this);
+            $comment->setArticle($this);
         }
 
         return $this;
@@ -176,8 +176,8 @@ class ArticleBlog  implements TimestampInterface
     {
         if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($comment->getArticleBlog() === $this) {
-                $comment->setArticleBlog(null);
+            if ($comment->getArticle() === $this) {
+                $comment->setArticle(null);
             }
         }
 

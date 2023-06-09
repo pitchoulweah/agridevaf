@@ -1,0 +1,293 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CheckoutController!{% endblock %}
+
+{% block body %}
+
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>AGRIDEVAF | Vérification</p>
+                        <h1>Commande</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end breadcrumb section -->
+
+    <!-- check out section -->
+    <div class="checkout-section mt-150 mb-150">
+        <div class="container">
+            <div class="section-title text-center mt-5">
+                <h2><span class="orange-text" style="">Etape de  </span> Vérification</h2> <span class="text-primary"><a
+                            href="{{ path('boutique') }}"><i class="fas fa-backspace text-success me-2"></i> Aller à la boutique</a></span>
+            </div>
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="checkout-accordion-wrap">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card single-accordion">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+
+                                                  Adresses
+
+                                        </button>
+                                    </h5>
+                                </div>
+
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                       <div class="card-body">
+                                        <div class="billing-address-form">
+                                            <h5>{{ client.nom }} {{client.prenoms}} <span class="badge bg-warning text-bg-dark p-2">{{  client.telephone }}</span></h5>
+                                            <h6 class="mb-2">{{ client.email }}</h6>
+
+                                                {{ form_start(form, {'attr': {novalidate: 'novalidate'}}) }}
+                                            <div class="row">
+                                                <div class="col-md">
+                                                    <h6 class="alert-success p-2 mb-2 w-100">Facturation</h6>
+                                                    {{ form_row(form.adresse_facturation) }}
+                                                    <select class="form-control form-select" name="ville_facture" id="ville_facture">
+                                                        <option value="0">--Sélectionnez une ville--</option>
+                                                        {% for ville in villes %}
+                                                            <option value="{{ ville.libelle }}">{{ ville.libelle }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    {{ form_row(form.ville_facturation) }}
+                                                    <select class="form-control form-select" name="pays_facture" id="pays_facture">
+                                                        <option value="0">--Sélectionnez un pays--</option>
+                                                        {% for country in pays %}
+                                                            <option value="{{ country.libelle }}">{{ country.libelle }}</option>
+                                                        {% endfor %}
+                                                    </select>
+
+                                                    {{ form_row(form.pays_facturation) }}
+
+                                                </div>
+                                                <div class="col-md">
+                                                    <h6 class="alert-primary p-2 mb-2 w-100">Livraison {{ app.session.get('CURRENT_CLIENT_SESSION').villeLivraison }}</h6>
+                                                    {{ form_row(form.adresse_livraison) }}
+                                                    <select class="form-control form-select" name="ville_livre" id="ville_livre" >
+                                                        <option value="0">--Sélectionnez une ville--</option>
+                                                        {% for ville in villes %}
+                                                        <option value="{{ ville.libelle }}">{{ ville.libelle }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    {{ form_row(form.ville_livraison) }}
+                                                    <select class="form-control form-select" name="pays_livre" id="pays_livre">
+                                                        <option value="0">--Sélectionnez un pays--</option>
+                                                        {% for country in pays %}
+                                                            <option value="{{ country.libelle }}">{{ country.libelle }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    {{ form_row(form.pays_livraison) }}
+                                                </div>
+                                            </div>
+                                            <input type="hidden" id="valeur_etre_livre" value="{{ current_commande.etreLivre }}">
+                                            <span class="bg-white p-1 mt-3 ms-3 w-100" id="expedition">
+                                                <u>
+                                                {% if (current_commande.etreLivre) %}
+                                                    <a class="p-3 fw-bold text-danger" style="font-size: 14px; font-weight: bold">je ne veux pas être livré à l'adresse indiquée</a>
+                                                {% else %}
+                                                    <a class="p-3 fw-bold  text-success" style="font-size: 14px; font-weight: bold">je veux être livré à l'adresse indiquée</a>
+                                                {% endif %}
+                                            </u>
+                                            </span>
+                                            <h6 class="fw-bold p-3 link text-primary"><u><button class="p-3" id="copie_adresse">Copier l'adresse de facturation</button></u></h6>
+                                                <div class="text-center mt-5"><input type="submit" class="btn-primary" value="Soumettre"></div>
+                                                {{ form_end(form) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card single-accordion">
+                                <div class="card-header" id="headingThree">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            Mode de paiement
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="card-details">
+                                            <div class="mb-3">
+                                                <label class="form-label">Payment method</label>
+                                                <div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
+                                                    <label class="form-selectgroup-item flex-fill">
+                                                        <input type="radio" name="form-payment" value="visa" class="form-selectgroup-input">
+                                                        <div class="form-selectgroup-label d-flex align-items-center p-3">
+                                                            <div class="me-3">
+                                                                <span class="form-selectgroup-check"></span>
+                                                            </div>
+                                                            <div>
+                                                                <span class="payment payment-provider-visa payment-xs me-2"></span>
+                                                                ending in <strong>7998</strong>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                    <label class="form-selectgroup-item flex-fill">
+                                                        <input type="radio" name="form-payment" value="mastercard" class="form-selectgroup-input" checked>
+                                                        <div class="form-selectgroup-label d-flex align-items-center p-3">
+                                                            <div class="me-3">
+                                                                <span class="form-selectgroup-check"></span>
+                                                            </div>
+                                                            <div>
+                                                                <span class="payment payment-provider-mastercard payment-xs me-2"></span>
+                                                                ending in <strong>2807</strong>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                    <label class="form-selectgroup-item flex-fill">
+                                                        <input type="radio" name="form-payment" value="paypal" class="form-selectgroup-input">
+                                                        <div class="form-selectgroup-label d-flex align-items-center p-3">
+                                                            <div class="me-3">
+                                                                <span class="form-selectgroup-check"></span>
+                                                            </div>
+                                                            <div>
+                                                                <span class="payment payment-provider-paypal payment-xs me-2"></span>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="btn btn-success m-2">Payez à la livraison</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="order-details-wrap">
+                        <table class="order-details w-100">
+                            <h5 class="p-3 bg-success text-light w-100 text-center">Le détail de votre commande</h5>
+                            <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th>Montant</th>
+                            </tr>
+                            </thead>
+                            <tbody class="order-details-body">
+                            {% for detail in details_commande %}
+                            <tr>
+                                <td>{{ detail.produit.libelle }}</td>
+                                <td class="text-center">{{ detail.totalht|number_format(0,',',' ')  }} F CFA</td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <th><span style="margin-left: 20px;">Total HT</span></th>
+                                <th class="text-center">{{ current_commande.ht|number_format(0,',',' ')  }} F CFA </th>
+                            </tr>
+                            <tr>
+                            <th><span style="margin-left: 20px;">TVA</span></th>
+                            <th class="text-center">{{ current_commande.tva|number_format(0,',',' ')  }} F CFA </th>
+                            </tr>
+                            <hr>
+                            <tr>
+                            <th><span style="margin-left: 20px;">Frais Expédition</span></th>
+                            <th class="text-center">2500 F CFA </th>
+                            </tr>
+                            <hr>
+                            <tr class="alert-success">
+                            <th class="mt-3 p-3"><h5> Total TTC</h5></th>
+                            <th class="text-center mt-3 p-3"><h5 class="badge bg-success text-light p-2" style="font-size: 20px">{{ current_commande.ttc|number_format(0,',',' ')  }} F CFA </h5></th>
+                            </tr>
+                            </tbody>
+
+                        </table>
+                        <div class="text-center mt-5"><a href="#" class="boxed-btn">Passer la commande maintenant</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end check out section -->
+    <script>
+        window.onload = () => {
+            /*Déclaration Variables*/
+            let copie = document.getElementById('copie_adresse');
+            let adresse_facturation = document.getElementById('client_adresse_facturation');
+            let ville_facturation = document.getElementById('client_ville_facturation');
+            let pays_facturation = document.getElementById('client_pays_facturation');
+
+             let adresse_livraison = document.getElementById('client_adresse_livraison');
+            let ville_livraison = document.getElementById('client_ville_livraison');
+
+
+
+            let pays_livraison = document.getElementById('client_pays_livraison');
+
+
+            let expedition = document.getElementById('expedition');
+            let valeur_etre_livre = document.getElementById('valeur_etre_livre');
+
+
+            let ville_livre = document.getElementById('ville_livre');
+            ville_livre.value = "{{ app.session.get('CURRENT_CLIENT_SESSION').villeLivraison }}"
+            ville_livre.addEventListener('change', function(){
+                ville_livraison.value = ville_livre.value ;
+            });
+
+            let pays_livre = document.getElementById('pays_livre');
+            pays_livre.value = "{{ app.session.get('CURRENT_CLIENT_SESSION').paysLivraison }}"
+            pays_livre.addEventListener('change', function(){
+                pays_livraison.value = pays_livre.value ;
+            });
+
+            let ville_facture = document.getElementById('ville_facture');
+            ville_facture.value = "{{ app.session.get('CURRENT_CLIENT_SESSION').villeFacturation }}"
+            ville_facture.addEventListener('change', function(){
+                ville_facturation.value = ville_facture.value ;
+            });
+
+            let pays_facture = document.getElementById('pays_facture');
+            pays_facture.value = "{{ app.session.get('CURRENT_CLIENT_SESSION').paysFacturation }}"
+            pays_facture.addEventListener('change', function(){
+                pays_facturation.value = pays_facture.value ;
+            });
+
+            /*Controller*/
+
+            /*Copie Adresse facturation*/
+            copie.addEventListener('click', function(){
+                adresse_livraison.value = adresse_facturation.value ;
+                ville_livraison.value = ville_facturation.value ;
+                pays_livraison.value = pays_facturation.value ;
+            });
+
+            /*Expédition*/
+            expedition.addEventListener('click', function(e){
+                e.preventDefault();
+                var valeur = 0;
+                //alert(valeur_etre_livre.value);
+               if (valeur_etre_livre.value === "1") {
+                   valeur = 0;
+               } else {
+                   valeur = 1;
+               }
+               //alert(valeur);
+                   $.ajax({
+                       url:'{{ hostname }}/checkout/'+ valeur,
+                       type : 'POST',
+                       data : {etre_livre: valeur},
+                       success: function(response){
+                           console.log(response);
+                           document.location = "{{ path('app_checkout') }}"
+                           /*let clientInfo = JSON.parse(response);*/
+                       }
+                   })
+
+            });
+        }
+    </script>
+{% endblock %}

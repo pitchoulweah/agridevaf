@@ -60,6 +60,14 @@ class ArticleBlogRepository extends ServiceEntityRepository
             ;
     }
 
+    public function derniersArticles(): array
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
 //    public function findOneBySomeField($value): ?ArticleBlog
 //    {

@@ -2,9 +2,12 @@
 
 namespace App\Form\Ventes;
 
+use App\Entity\Pays;
 use App\Entity\Ventes\Client;
+use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -63,7 +66,7 @@ class ClientType extends AbstractType
                 'required'=>true,
                 'attr'=>[
                     'placeholder'=>'ville',
-                    'class'=>'form-control p-4 mb-4 fs-4'
+                    'class'=>'form-control text-dark'
                 ],
                 'constraints'=>new NotBlank(['message'=>"la ville de facturation est obligatoire"]),
             ])
@@ -71,7 +74,7 @@ class ClientType extends AbstractType
                 'label'=>false,
                 'attr'=>[
                     'placeholder'=>'pays',
-                    'class'=>'form-control p-4 mb-4 fs-4'
+                    'class'=>'form-control text-dark'
                 ]
             ])
             ->add('adresse_livraison', TextType::class, [
@@ -88,7 +91,7 @@ class ClientType extends AbstractType
                 'required'=>true,
                 'attr'=>[
                     'placeholder'=>'ville de livraison',
-                    'class'=>'form-control p-4 mb-4 fs-4'
+                    'class'=>'form-control text-dark'
                 ],
                 'constraints'=>new NotBlank(['message'=>"la ville de livraison est obligatoire"]),
             ])
@@ -96,7 +99,7 @@ class ClientType extends AbstractType
                 'label'=>false,
                 'attr'=>[
                     'placeholder'=>'pays de livraison',
-                    'class'=>'form-control p-4 mb-4 fs-4'
+                    'class'=>'form-control text-dark'
                 ]
             ])
         ;

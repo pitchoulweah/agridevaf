@@ -27,17 +27,25 @@
                                 </ul>
                             </li>
                             <li><a href="#">Actualités</a></li>
-                            <li><a href="#">Nos contacts</a></li>
                             <li><a href="{{ path('boutique') }}">La boutique</a></li>
+                            <li><a href="{{ path('app_contacts') }}">Nos contacts</a></li>
+                            <li><a class="shopping-cart" href="{{ path('app_panier') }}" title="mon panier"><i class="fas fa-shopping-cart"></i></a></li>
                             <li>
                                 <div class="header-icons">
-                                    <a class="shopping-cart" href="#"><i class="fas fa-shopping-cart"></i></a>
+
                                     {#<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>#}
-                                    <a class="" title="mon compte" href="#"><i class="fas fa-user"></i> {{ app.session.get('CURRENT_CLIENT_SESSION') }}
+                                    <a class="" title="mon compte" href="#"><i class="fas fa-user"></i>
+                                        {% if app.session.get('CURRENT_CLIENT_SESSION').telephone is defined %}
+                                        {{ app.session.get('CURRENT_CLIENT_SESSION').telephone }}
+                                        {% endif %}
                                         {#<br><div class="badge bg-dark text-light"></div>#} </a>
                                     <ul class="sub-menu">
-                                        <li><a href="{{ path('app_client') }}">mon compte</a></li>
+                                        {% if (app.session.get('CURRENT_CLIENT_SESSION')) %}
+                                        <li><a href="#">mon compte</a></li>
                                         <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+                                        {% else %}
+                                        <li><a href="{{ path('app_client') }}">Connectez-vous</a></li>
+                                        {% endif%}
                                     </ul>
                                 </div>
                             </li>

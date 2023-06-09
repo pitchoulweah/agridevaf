@@ -2,18 +2,42 @@
 {% block titre %}Le N°1 de l'engrais BIO en Côte d'Ivoire{% endblock %}
 
 {% block body %}
-
+    <script src="{{ asset('assets/table/jquery-3.6.0.min.js') }}"></script>
 <div class="hero-area hero-bg">
     <div class="container">
         <div class="row">
             <div class="col-lg-9 offset-lg-2 text-center">
                 <div class="hero-text">
                     <div class="hero-text-tablecell">
+
+                        {% for message in app.session.flashBag.get('info') %}
+                            <div class="container mt-5 mx-md-auto" id="flash">
+                                <div class="alert alert-info">
+                                    {{ message }}
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                        {% for message in app.session.flashBag.get('success') %}
+                            <div class="container mt-5 mx-md-auto" id="flash">
+                                <div class="alert alert-success">
+                                    {{ message }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% for message in app.session.flashBag.get('error') %}
+                            <div class="container mt-5 mx-md-auto" id="flash">
+                                <div class="alert alert-danger">
+                                    {{ message }}
+                                </div>
+                            </div>
+                        {% endfor %}
+
                         <p class="subtitle">100% bio</p>
                         <h1>Le N°1 de l'<span style="font-size: 80px;">E</span>ngrais BIO <span style="font-size: 80px;">M</span>inéral en Côte d'Ivoire</h1>
                         <div class="hero-btns">
-                            <a href="shop.html" class="boxed-btn">Collections AGROMAX</a>
-                            <a href="contact.html" class="bordered-btn">Nous contacter</a>
+                            <a href="{{ path('boutique') }}" class="boxed-btn">Collections AGROMAX</a>
+                            <a href="{{ path('app_contacts') }}" class="bordered-btn">Nous contacter</a>
                         </div>
                     </div>
                 </div>
@@ -71,7 +95,7 @@
 <div class="">
     <div class="">
         <div class="section-title text-center mt-5">
-            <h2><span class="orange-text" style="">VOTRE PROJET AGRICOL EST LE </span> NOTRE</h2>
+            <h2><span class="orange-text" style="">VOTRE PROJET AGRICOLE EST LE </span> NOTRE</h2>
         </div>
         <div class="row bg-light">
             <div class="col-lg-12">
@@ -112,7 +136,7 @@
                         </div>
                         <h3>{{ produit.libelle }}</h3>
                         <p class="product-price"><span>bidon</span> {{ produit.prix }} </p>
-                        <a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>
+                        <a href="{{ path('process_commande', {id_produit: produit.id})}}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>
                     </div>
                 </div>
             {% endfor %}
@@ -201,7 +225,7 @@
                     <h3 class="text-justify">Nous sommes <span class="orange-text">Agridevaf</span></h3>
                     <p class="text-justify">Etiam vulputate ut augue vel sodales. In sollicitudin neque et massa porttitor vestibulum ac vel nisi. Vestibulum placerat eget dolor sit amet posuere. In ut dolor aliquet, aliquet sapien sed, interdum velit. Nam eu molestie lorem.</p>
                     <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente facilis illo repellat veritatis minus, et labore minima mollitia qui ducimus.</p>
-                    <a href="#" class="boxed-btn mt-4">En Savoir plus</a>
+                    <a href="{{ path('app_about') }}" class="boxed-btn mt-4">En Savoir plus</a>
                 </div>
             </div>
         </div>
@@ -257,18 +281,18 @@
         </div>
         <article class="mx-auto">
             <div class="single-latest-news row mb-100 p-2">
-                <div class="col-md-4">
-                    <img class="rounded-3 img-fluid" src="/uploads/media/{{last_articles.featuredImage.filename}}" alt="{{ last_articles.featuredImage.altText }}" loading="lazy"  height="60%">
+                <div class="col-md-6">
+                    <img class="rounded-3 img-fluid" src="/uploads/media/{{last_articles.featuredImage.filename}}" alt="{{ last_articles.featuredImage.altText }}" loading="lazy"  >
                 </div>
-                <div class="news-text-box col-md-8">
-                    <h3 style="font-family: Cursif;color: orangered">A la une</h1>
-                        <h3 class="text-danger"><a href="{{last_articles.slug}}">{{ last_articles.title }}</a></h3>
+                <div class="news-text-box col-md-6">
+                    <h3 style="font-family: Cursif;color: orangered">A la une</h3>
+                        <h3 class="text-danger"><a href="{{ path('article_blog_show',{'slug': last_articles.slug} ) }}">{{ last_articles.title }}</a></h3>
                         <p class="blog-meta">
                             <span class="author"><i class="fas fa-user"></i>agridevaf</span>
                             <span class="date"><i class="fas fa-calendar"></i>{{ last_articles.createdAt|date('d m Y') }}</span>
                         </p>
                         <p class="excerpt">{{ last_articles.featuredText ?: last_articles.content | striptags|slice(0, 130) - '...' }}</p>
-                        <a href="#" class="read-more-btn">Lire l'article <i class="fas fa-angle-right"></i></a>
+                        <a href="{{ path('article_blog_show',{'slug': last_articles.slug} ) }}" class="read-more-btn">Lire l'article <i class="fas fa-angle-right"></i></a>
                 </div>
             </div>
         </article>
@@ -283,19 +307,19 @@
                             <div class="single-latest-news">
                                 <a href="#">
                                     {% if article.featuredImage %}
-                                        <a href="{{article.slug}}" class="link-primary">
+                                        <a href="{{ path('article_blog_show',{'slug': article.slug} ) }}" class="link-primary">
                                             <img src="/uploads/media/{{article.featuredImage.filename}}" alt="{{ article.featuredImage.altText }}" loading="lazy" width="350" height="200">
                                         </a>
                                     {% endif %}
                                 </a>
                                 <div class="news-text-box">
-                                    <h3><a href="{{article.slug}}">{{ article.title }}</a></h3>
+                                    <h3><a href="{{ path('article_blog_show',{'slug': article.slug} ) }}">{{ article.title }}</a></h3>
                                     <p class="blog-meta">
                                         <span class="author"><i class="fas fa-user"></i>agridevaf</span>
                                         <span class="date"><i class="fas fa-calendar"></i>{{ article.createdAt|date('d m Y') }}</span>
                                     </p>
                                     <p class="excerpt">{{ article.featuredText ?: article.content | striptags|slice(0, 130) - '...' }}</p>
-                                    <a href="#" class="read-more-btn">Lire l'article <i class="fas fa-angle-right"></i></a>
+                                    <a href="{{ path('article_blog_show',{'slug': article.slug} ) }}" class="read-more-btn">Lire l'article <i class="fas fa-angle-right"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -303,12 +327,20 @@
                 </div></div></div>
         <div class="row">
             <div class="col-lg-12 text-center">
-                <a href="news.html" class="boxed-btn">Plus d'actualités</a>
+                <a href="{{ path('articles_blog_show') }}" class="boxed-btn">Plus d'actualités</a>
             </div>
         </div>
     </div>
 </div>
+    <script src="{{ asset('assets/table/jquery-3.6.0.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#flash").delay(4000).fadeOut("slow");
+        });
+    </script>
+
 {% endblock %}
+
 {% block footer %}
 
 {% endblock %}

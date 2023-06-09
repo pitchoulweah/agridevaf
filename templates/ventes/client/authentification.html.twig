@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+    <link rel="stylesheet" href="{{ asset('assets/portail/assets/bootstrap/css/bootstrap.min.css') }}">
+    <div class="bg-dark p-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text mt-100">
+                        <h1 style="font-family: Cursif">Connexion</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-from-section mt-150 mb-150">
+        <div class="container">
+                <div class="col-md-6 mb-lg-0 my-md-auto mx-auto text-md-center">
+                    <div class="">
+                        <div class="form-title">
+                            <h2 style="color:orangered">je me connecte</h2>
+                        </div>
+                        <div class="card-body">
+                            <div id="form_status"></div>
+                            <div class="contact-form">
+                                <form type="POST" id="client-contact">
+                                    <p>
+                                        <input class="text-center"  type="tel" placeholder="Votre numéro de téléphone" name="phone" id="phone" style="font-weight: bold;font-size: 16px;width: 100%;" onsubmit="recherche(this)">
+                                    </p>
+                                </form>
+                            </div>
+
+                        </div>
+                        <div class="card-footer bg-white p-3">
+                            <button class="btn btn-primary btnrecherche"  id="btnrecherche" name="btnrecherche">Connexion</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = () => {
+            let recherche_btn = document.getElementById('btnrecherche');
+            let phone = document.getElementById('phone');
+            recherche_btn.addEventListener('click', function(e){
+                e.preventDefault();
+                $.ajax({
+                    url:'{{ hostname }}/authentification/' + phone.value,
+                    type : 'POST',
+                    data : {valeur: phone.value},
+                    success: function(response){
+                        console.log(response);
+                        //document.location = "{{ path('boutique') }}"
+                        /*let clientInfo = JSON.parse(response);*/
+
+                    }
+                })
+
+            });
+        }
+        function recherche(telephone){
+            alert(telephone);
+            $.ajax({
+                url:'{{ hostname }}/authentification/' + telephone,
+                type : 'POST',
+                data : {valeur: telephone},
+
+                success: function(response){
+                    console.log(response);
+                    //document.location = "{{ path('boutique') }}"
+                }
+            })
+        }
+    </script>
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

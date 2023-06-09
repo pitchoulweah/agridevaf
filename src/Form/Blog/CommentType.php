@@ -21,7 +21,7 @@ class CommentType extends AbstractType
             ->add('content', TextareaType::class, [
                 'label'=>'votre message'
             ])
-            ->add('produit', HiddenType::class)
+            ->add('article', HiddenType::class)
             ->add('send', SubmitType::class, [
                 'label'=>'Envoyer',
                 'attr'=>[
@@ -29,7 +29,7 @@ class CommentType extends AbstractType
                 ]
             ])
         ;
-        $builder->get('produit')
+        $builder->get('article')
             ->addModelTransformer(new CallbackTransformer(
 
                 fn($art)    => $art->getId(),

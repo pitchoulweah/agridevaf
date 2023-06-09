@@ -49,9 +49,13 @@ class Produit
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $conditionnement = null;
 
+    #[ORM\OneToMany(mappedBy: 'produit', targetEntity: DetailsCommande::class)]
+    private Collection $detailsCommandes;
+
     public function __construct()
     {
         $this->detailsGrilles = new ArrayCollection();
+        $this->detailsCommandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -209,6 +213,36 @@ class Produit
     public function setConditionnement(?string $conditionnement): self
     {
         $this->conditionnement = $conditionnement;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DetailsCommande>
+     */
+    public function getDetailsCommandes(): Collection
+    {
+        return $this->detailsCommandes;
+    }
+
+    public function addDetailsCommande(DetailsCommande $detailsCommande): self
+    {
+        if (!$this->detailsCommandes->contains($detailsCommande)) {
+            $this->detailsCommandes->add($detailsCommande);
+            $detailsCommande->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDetailsCommande(DetailsCommande $detailsCommande): self
+    {
+        if ($this->detailsCommandes->removeElement($detailsCommande)) {
+            // set the owning side to null (unless already changed)
+            if ($detailsCommande->getProduit() === $this) {
+                $detailsCommande->setProduit(null);
+            }
+        }
 
         return $this;
     }

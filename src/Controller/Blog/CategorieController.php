@@ -9,11 +9,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CategorieController extends AbstractController
 {
-    #[Route('/blog/categories/{slug}', name: 'categorie_show')]
+    #[Route('/categorie-articles/{slug}', name: 'categorie_show')]
     public function show(Categorie $categorie): Response
     {
         if (!$categorie){
-            return $this->redirectToRoute('app_blog_home');
+            return $this->redirectToRoute('app_portail');
         }
 
         return $this->render('blog/categorie/show.html.twig', [

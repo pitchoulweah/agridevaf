@@ -8,11 +8,13 @@ use App\Entity\Blog\Categorie;
 use App\Entity\Blog\Comment;
 use App\Entity\Blog\Media;
 use App\Entity\Blog\Option;
+use App\Entity\Pays;
 use App\Entity\User;
 use App\Entity\Ventes\CategorieProduit;
 use App\Entity\Ventes\DetailsGrille;
 use App\Entity\Ventes\GrilleTarifaire;
 use App\Entity\Ventes\Produit;
+use App\Entity\Ville;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -63,6 +65,8 @@ class DashboardController extends AbstractDashboardController
         ]);
         yield MenuItem::subMenu('Confriguration', 'fas fa-tools')->setSubItems([
             MenuItem::linkToCrud('Utilisateurs','fas fa-user-friends',User::class),
+            MenuItem::linkToCrud('Villes','fas fa-city',Ville::class),
+            MenuItem::linkToCrud('Pays','fas fa-flag',Pays::class),
             MenuItem::linkToCrud('General','fas fa-cog',Option::class)
         ]);
     }

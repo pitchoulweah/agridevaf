@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Repository\Blog\OptionRepository;
 use App\Repository\Ventes\CategorieProduitRepository;
+use App\Repository\Ventes\ClientRepository;
 use App\Repository\Ventes\ProduitRepository;
+use Symfony\Component\Routing\Annotation\Route;
 
 class CatalogueServices
 {
